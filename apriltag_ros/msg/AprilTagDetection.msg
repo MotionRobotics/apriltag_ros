@@ -7,6 +7,10 @@ int32[] id
 # order as the IDs above.
 float64[] size
 
+# Tag name(s). If a standalone tag, it will be the names of the tags. If a tag bundle,
+# it will be the tag bundle name.
+string name
+
 # Pose in the camera frame, obtained from homography transform. If a standalone
 # tag, the homography is from the four tag corners. If a tag bundle, the
 # homography is from at least the four corners of one member tag and at most the
