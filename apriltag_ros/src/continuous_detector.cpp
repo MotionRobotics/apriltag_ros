@@ -74,7 +74,7 @@ void ContinuousDetector::imageCallback (
       tag_detections_image_publisher_.getNumSubscribers() == 0 &&
       !tag_detector_->get_publish_tf())
   {
-    // ROS_INFO_STREAM("No subscribers and no tf publishing, skip processing.");
+    ROS_INFO_STREAM("No subscribers and no tf publishing, skip processing.");
     return;
   }
 

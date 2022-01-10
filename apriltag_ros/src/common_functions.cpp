@@ -340,8 +340,9 @@ AprilTagDetectionArray TagDetector::detectTags (
     tag_detection.pose = tag_pose;
     tag_detection.id.push_back(detection->id);
     tag_detection.size.push_back(tag_size);
+    tag_detection.name = standaloneDescription->frame_name();
     tag_detection_array.detections.push_back(tag_detection);
-    detection_names.push_back(standaloneDescription->frame_name());
+    detection_names.push_back(tag_detection.name);
   }
 
   //=================================================================
@@ -376,6 +377,7 @@ AprilTagDetectionArray TagDetector::detectTags (
       tag_detection.pose = bundle_pose;
       tag_detection.id = bundle.bundleIds();
       tag_detection.size = bundle.bundleSizes();
+      tag_detection.name = bundleName;
       tag_detection_array.detections.push_back(tag_detection);
       detection_names.push_back(bundle.name());
     }
