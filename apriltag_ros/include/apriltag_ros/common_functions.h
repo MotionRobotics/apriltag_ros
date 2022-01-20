@@ -58,6 +58,7 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/core/core.hpp>
+#include <opencv2/core/eigen.hpp>
 #include <image_transport/image_transport.h>
 #include <sensor_msgs/image_encodings.h>
 #include <tf/transform_broadcaster.h>
@@ -183,6 +184,7 @@ class TagDetector
   bool remove_duplicates_;
   bool run_quietly_;
   bool publish_tf_;
+  bool marker_frame_;
   tf::TransformBroadcaster tf_pub_;
 
  public:
@@ -225,6 +227,7 @@ class TagDetector
   Eigen::Matrix4d getRelativeTransform(
       std::vector<cv::Point3d > objectPoints,
       std::vector<cv::Point2d > imagePoints,
+      bool marker_frame,
       double fx, double fy, double cx, double cy) const;
   
   void addImagePoints(apriltag_detection_t *detection,

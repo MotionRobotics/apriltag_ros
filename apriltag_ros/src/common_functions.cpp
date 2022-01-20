@@ -53,7 +53,8 @@ TagDetector::TagDetector(ros::NodeHandle pnh) :
     refine_edges_(getAprilTagOption<int>(pnh, "tag_refine_edges", 1)),
     debug_(getAprilTagOption<int>(pnh, "tag_debug", 0)),
     max_hamming_distance_(getAprilTagOption<int>(pnh, "max_hamming_dist", 2)),
-    publish_tf_(getAprilTagOption<bool>(pnh, "publish_tf", false))
+    publish_tf_(getAprilTagOption<bool>(pnh, "publish_tf", false)),
+    marker_frame_(getAprilTagOption<bool>(pnh, "marker_frame", false))
 {
   // Parse standalone tag descriptions specified by user (stored on ROS
   // parameter server)
@@ -327,7 +328,8 @@ AprilTagDetectionArray TagDetector::detectTags (
     addObjectPoints(tag_size/2, cv::Matx44d::eye(), standaloneTagObjectPoints);
     addImagePoints(detection, standaloneTagImagePoints);
     Eigen::Matrix4d transform = getRelativeTransform(standaloneTagObjectPoints,
-                                                     standaloneTagImagePoints,
+                                                     standaloneTagImagePoints, 
+                                                     marker_frame_,
                                                      fx, fy, cx, cy);
     Eigen::Matrix3d rot = transform.block(0, 0, 3, 3);
     Eigen::Quaternion<double> rot_quaternion(rot);
@@ -365,7 +367,9 @@ AprilTagDetectionArray TagDetector::detectTags (
 
       Eigen::Matrix4d transform =
           getRelativeTransform(bundleObjectPoints[bundleName],
-                               bundleImagePoints[bundleName], fx, fy, cx, cy);
+                               bundleImagePoints[bundleName], 
+                               marker_frame_,
+                               fx, fy, cx, cy);
       Eigen::Matrix3d rot = transform.block(0, 0, 3, 3);
       Eigen::Quaternion<double> rot_quaternion(rot);
 
@@ -391,10 +395,18 @@ AprilTagDetectionArray TagDetector::detectTags (
       pose.header = tag_detection_array.detections[i].pose.header;
       tf::Stamped<tf::Transform> tag_transform;
       tf::poseStampedMsgToTF(pose, tag_transform);
-      tf_pub_.sendTransform(tf::StampedTransform(tag_transform,
-                                                 tag_transform.stamp_,
-                                                 image->header.frame_id,
-                                                 detection_names[i]));
+      if (marker_frame_){
+        tf_pub_.sendTransform(tf::StampedTransform(tag_transform,
+                                            tag_transform.stamp_,
+                                            detection_names[i],
+                                            image->header.frame_id));
+      }
+      else{
+        tf_pub_.sendTransform(tf::StampedTransform(tag_transform,
+                                            tag_transform.stamp_,
+                                            image->header.frame_id,
+                                            detection_names[i]));
+      }
     }
   }
 
@@ -486,6 +498,7 @@ void TagDetector::addImagePoints (
 Eigen::Matrix4d TagDetector::getRelativeTransform(
     std::vector<cv::Point3d > objectPoints,
     std::vector<cv::Point2d > imagePoints,
+    bool marker_frame,
     double fx, double fy, double cx, double cy) const
 {
   // perform Perspective-n-Point camera pose estimation using the
@@ -505,11 +518,26 @@ Eigen::Matrix4d TagDetector::getRelativeTransform(
   wRo << R(0,0), R(0,1), R(0,2), R(1,0), R(1,1), R(1,2), R(2,0), R(2,1), R(2,2);
 
   Eigen::Matrix4d T; // homogeneous transformation matrix
-  T.topLeftCorner(3, 3) = wRo;
-  T.col(3).head(3) <<
-      tvec.at<double>(0), tvec.at<double>(1), tvec.at<double>(2);
-  T.row(3) << 0,0,0,1;
-  return T;
+  if (marker_frame_)
+  {
+    Eigen::Matrix3d wRo_T;
+    Eigen::MatrixXd tvec_eigen;
+
+    cv::cv2eigen(tvec, tvec_eigen);
+    wRo_T = wRo.transpose();
+    tvec_eigen = -(wRo_T * tvec_eigen);
+    T.topLeftCorner(3, 3) = wRo_T;
+    T.col(3).head(3) << tvec_eigen;
+    T.row(3) << 0,0,0,1;
+    return T;
+  }
+  else{
+    T.topLeftCorner(3, 3) = wRo;
+    T.col(3).head(3) <<
+        tvec.at<double>(0), tvec.at<double>(1), tvec.at<double>(2);
+    T.row(3) << 0,0,0,1;
+    return T;
+  }
 }
 
 geometry_msgs::PoseWithCovarianceStamped TagDetector::makeTagPose(
