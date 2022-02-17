@@ -517,6 +517,9 @@ Eigen::Matrix4d TagDetector::getRelativeTransform(
   Eigen::Matrix3d wRo;
   wRo << R(0,0), R(0,1), R(0,2), R(1,0), R(1,1), R(1,2), R(2,0), R(2,1), R(2,2);
 
+  Eigen::Matrix4d rotate_to_ros_standard;
+  rotate_to_ros_standard << 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1; // Rotate by 90 degrees anticlockwise
+
   Eigen::Matrix4d T; // homogeneous transformation matrix
   if (marker_frame_)
   {
@@ -529,6 +532,7 @@ Eigen::Matrix4d TagDetector::getRelativeTransform(
     T.topLeftCorner(3, 3) = wRo_T;
     T.col(3).head(3) << tvec_eigen;
     T.row(3) << 0,0,0,1;
+    T = rotate_to_ros_standard * T * rotate_to_ros_standard.transpose();
     return T;
   }
   else{
@@ -536,6 +540,7 @@ Eigen::Matrix4d TagDetector::getRelativeTransform(
     T.col(3).head(3) <<
         tvec.at<double>(0), tvec.at<double>(1), tvec.at<double>(2);
     T.row(3) << 0,0,0,1;
+    T = rotate_to_ros_standard * T * rotate_to_ros_standard.transpose();
     return T;
   }
 }
