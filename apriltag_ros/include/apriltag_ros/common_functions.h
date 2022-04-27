@@ -48,6 +48,7 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <chrono>
 
 #include <ros/ros.h>
 #include <ros/console.h>
@@ -217,6 +218,11 @@ class TagDetector
       const cv_bridge::CvImagePtr& image,
       const sensor_msgs::CameraInfoConstPtr& camera_info);
 
+  AprilTagDetectionArray detectTags(
+      const cv::Mat& image,
+      const cv::Mat& camera_matrix,
+      const std_msgs::Header& header);
+
   // Get the pose of the tag in the camera frame
   // Returns homogeneous transformation matrix [R,t;[0 0 0 1]] which
   // takes a point expressed in the tag frame to the same point
@@ -237,6 +243,8 @@ class TagDetector
 
   // Draw the detected tags' outlines and payload values on the image
   void drawDetections(cv_bridge::CvImagePtr image);
+
+  void drawDetections(cv::Mat& image);
 
   bool get_publish_tf() const { return publish_tf_; }
 };
