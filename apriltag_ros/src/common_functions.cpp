@@ -45,6 +45,8 @@
 namespace apriltag_ros
 {
 
+TagDetector::TagDetector(){}
+
 TagDetector::TagDetector(ros::NodeHandle pnh) :
     family_(getAprilTagOption<std::string>(pnh, "tag_family", "tag36h11")),
     threads_(getAprilTagOption<int>(pnh, "tag_threads", 4)),
