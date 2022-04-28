@@ -191,7 +191,6 @@ class TagDetector
 
   bool marker_frame_;
 
-  TagDetector();
   TagDetector(ros::NodeHandle pnh);
   ~TagDetector();
 
