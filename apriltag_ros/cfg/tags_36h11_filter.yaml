@@ -13,6 +13,6 @@ decimate: 0.0           # decimate resolution for quad detection
 blur: 1.0               # sigma of Gaussian blur for quad detection
 refine-edges: 1         # snap to strong gradients
 debug: 0                # write additional debugging images to current working directory
-tag_ids: [0, 101]            # tag ID
-tag_frames: [drone, port_ground_back]  # optional frame name
-tag_sizes: [0.06, 0.32]   # optional tag-specific edge size
+tag_ids: [0, 1, 101, 104, 102]            # tag ID
+tag_frames: ['drone', 'rack' ,'port_ground_back_bttm', 'port_ground_back_top', 'test_temp']  # optional frame name
+tag_sizes: [0.06, 0.06, 0.32, 0.32, 0.32]   # optional tag-specific edge size
