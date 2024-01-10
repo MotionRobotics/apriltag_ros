@@ -13,6 +13,6 @@ decimate: 0.0           # decimate resolution for quad detection
 blur: 1.0               # sigma of Gaussian blur for quad detection
 refine-edges: 1         # snap to strong gradients
 debug: 0                # write additional debugging images to current working directory
-tag_ids: [100, 101, 102, 103, 104]            # tag ID
-tag_frames: ['drone_back_cam0', 'drone_back_cam1', 'drone_back_cam2', 'drone_back_cam3', 'drone_back_cam4_104']  # optional frame name
-tag_sizes: [0.12, 0.32, 0.24, 0.24, 0.32] #[0.12, 0.32, 0.24, 0.24]   # optional tag-specific edge size
+tag_ids: [100, 101, 102, 103, 104, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 , 13, 14, 15, 16, 17, 18, 19, 20]            # tag ID
+tag_frames: ['drone_back_cam0', 'drone_back_cam1', 'drone_back_cam2', 'drone_back_cam3', 'drone_back_cam4_104', 'ID1', 'ID2', 'ID3', 'ID4', 'ID5', 'ID6', 'ID7', 'ID8', 'ID9', 'ID10', 'ID11', 'ID12', 'ID13', 'ID14', 'ID15', 'ID16', 'ID17', 'ID18', 'ID19', 'ID20']  # optional frame name
+tag_sizes: [0.12, 0.32, 0.24, 0.24, 0.32, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06] #[0.12, 0.32, 0.24, 0.24]   # optional tag-specific edge size
