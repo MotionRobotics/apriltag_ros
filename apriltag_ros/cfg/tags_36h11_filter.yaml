@@ -13,6 +13,11 @@ decimate: 0.0           # decimate resolution for quad detection
 blur: 1.0               # sigma of Gaussian blur for quad detection
 refine-edges: 1         # snap to strong gradients
 debug: 0                # write additional debugging images to current working directory
-tag_ids: [0, 1, 101, 104, 102, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 , 13, 14, 15, 16, 17, 18, 19, 20]            # tag ID
-tag_frames: ['drone', 'rack' ,'port_ground_back_bttm', 'port_ground_back_top', 'test_temp', 'ID2', 'ID3', 'ID4', 'ID5', 'ID6', 'ID7', 'ID8', 'ID9', 'ID10', 'ID11', 'ID12', 'ID13', 'ID14', 'ID15', 'ID16', 'ID17', 'ID18', 'ID19', 'ID20']  # optional frame name
-tag_sizes: [0.06, 0.06, 0.32, 0.32, 0.32, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06]   # optional tag-specific edge size
+# tag_ids: [0, 1, 100, 101, 104, 102, 103, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 , 13, 14, 15, 16, 17, 18, 19, 20, 22, 26, 25, 21, 23, 28, 29]            # tag ID
+# tag_frames: ['drone', 'rack', 'middle roof' ,'port_ground_back_bttm', 'port_ground_back_top', 'left roof', 'right roof', 'ID2', 'ID3', 'ID4', 'ID5', 'ID6', 'ID7', 'ID8', 'ID9', 'ID10', 'ID11', 'ID12', 'ID13', 'ID14', 'ID15', 'ID16', 'ID17', 'ID18', 'ID19', 'ID20', 'ID22', 'ID26', 'ID25', 'ID21', 'ID23', 'ID28', 'ID29']  # optional frame name
+# tag_sizes: [0.06, 0.06, 0.12, 0.32, 0.32, 0.24, 0.24, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06]   # optional tag-specific edge size
+
+
+tag_ids: [0, 1, 100, 101, 104, 102, 103, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 , 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]            # tag ID
+tag_frames: ['drone', 'rack', 'middle roof' ,'port_ground_back_bttm', 'port_ground_back_top', 'left roof', 'right roof', 'ID2', 'ID3', 'ID4', 'ID5', 'ID6', 'ID7', 'ID8', 'ID9', 'ID10', 'ID11', 'ID12', 'ID13', 'ID14', 'ID15', 'ID16', 'ID17', 'ID18', 'ID19', 'ID20', 'ID21', 'ID22', 'ID23', 'ID24', 'ID25', 'ID26', 'ID27', 'ID28', 'ID29', 'ID30']  # optional frame name
+tag_sizes: [0.06, 0.06, 0.12, 0.32, 0.32, 0.24, 0.24, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06]   # optional tag-specific edge size
